@@ -1,0 +1,22 @@
+{
+  "name": "react-auth-service",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "https://github.com/svetoslavmishev/react-auth-service.git",
+  "author": "SvetoslaVM",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\""
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "config": "^3.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.5.11"
+  }
+}
