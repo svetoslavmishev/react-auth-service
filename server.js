@@ -14,8 +14,8 @@ app.use(express.json());
 database(config[env]);
 
 // Routes
-app.use('/', require('./routes/api/index'));
-app.use('/auth', require('./routes/api/users'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 
 app.listen(port, console.log(`Server running at http://localhost:${port}`));

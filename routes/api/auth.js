@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 
-// @route   POST api/users
-// @desc    Register new user
+// @route   POST api/auth
+// @desc    Authenticate user
 
 
 module.exports = router;

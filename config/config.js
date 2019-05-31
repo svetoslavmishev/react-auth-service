@@ -1,7 +1,7 @@
 module.exports = {
     developement: {
-        "mongodbURI": "mymongodbURI",
+        "mongodbURI": "mъmongodbURI",
         "jwtSecret": "myjwtSecret"
     },
     production: {}
-}
+};
