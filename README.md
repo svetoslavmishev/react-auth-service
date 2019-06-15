@@ -4,7 +4,8 @@
 
 ## Quick Start
 
-Add your MONGO_URI to the config.json file.
+Create .env file in root dir.
+Add your MONGODB_CONNECTION to the .env file.
 
 ```bash
 # Install dependencies for server
