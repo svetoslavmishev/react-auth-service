@@ -1,7 +1,16 @@
-import { makeStyles, createStyles } from '@material-ui/styles';
+import { createStyles } from '@material-ui/styles';
 
-const styles = makeStyles(theme => createStyles({
- 
-}));
+const styles = (theme: Theme) => createStyles({
+    root: {
+        flexGrow: 1,
+        background: 'red'
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+});
 
 export default styles;
