@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Avatar, Button, CssBaseline, TextField, Link, Paper, Grid, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { Avatar, Button, CssBaseline, TextField, Paper, Grid, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './SignUpStyles';
@@ -22,8 +23,10 @@ class SignUp extends Component {
 
   handleClick(event) {
     //if func is passed return func
-    //func should passed from redux store
+    //func should passed from redux store    
     event.preventDefault();
+
+    //TODO validations
     console.log(this.state);
   };
 
@@ -111,7 +114,7 @@ class SignUp extends Component {
               </Button>
               <Grid container>
                 <Grid item>
-                  <Link href="/auth/signin" variant="body2">
+                  <Link to="/auth/signin" variant="body2">
                     Already have an account? Sign in
               </Link>
                 </Grid>

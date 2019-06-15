@@ -1,8 +1,8 @@
 const express = require('express');
-const port = process.env.PORT || 5000;
-const env = process.env.NODE_ENV || 'developement';
 const config = require('./config/config');
 const database = require('./config/database.config');
+const port = process.env.PORT || 5000;
+const env = process.env.NODE_ENV || 'developement';
 
 
 const app = express();

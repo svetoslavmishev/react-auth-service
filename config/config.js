@@ -1,7 +1,9 @@
+const dotenv = require('dotenv').config();
+
 module.exports = {
     developement: {
-        "mongodbURI": "mъmongodbURI",
-        "jwtSecret": "myjwtSecret"
+        "mongodbURI": process.env.MONGODB_CONNECTION,
+        "jwtSecret": process.env.JWT_SECRET_KEY,
     },
     production: {}
 };

@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
-module.exports = (config) => {
-    mongoose.connect(config.mongodbURI, { useNewUrlParser: true });
+if (process.env.MONGODB_CONNECTION != '') {
+    mongoose.connect(process.env.MONGODB_CONNECTION, { useNewUrlParser: true })
+        .catch((err) => {
+            console.log('*** Can Not Connect to Mongo Server');
+        });
+
     const db = mongoose.connection;
+    module.exports = () => db;
 
-    db.once('open', err => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-
+    db.once('open', () => {
         console.log('MongoDB is now connected...');
+    })
+    db.on('error', (error) => {
+        console.log('error', error);
     });
-
-    db.on('err', err => {
-        console.log(err);
-    });
+    // End of Mongoose Setup
+} else {
+    console.log('No Mongo Credentials Given');
 };

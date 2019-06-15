@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Avatar, Button, CssBaseline, TextField, Link, Paper, Grid, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { Avatar, Button, CssBaseline, TextField, Paper, Grid, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './SignInStyles';
@@ -22,6 +23,8 @@ class SignIn extends Component {
     //if func is passed return func
     //func should passed from redux store
     event.preventDefault();
+
+    //TODO validations
     console.log(this.state);
   };
 
@@ -81,7 +84,7 @@ class SignIn extends Component {
               </Button>
               <Grid container>
                 <Grid item>
-                  <Link href="/auth/signup" variant="body2">
+                  <Link to="/auth/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
