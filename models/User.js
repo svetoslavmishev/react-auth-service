@@ -1,12 +1,8 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
+import encryption from '../helpers/encryption';
 
-const UserSchema = new Schema({
-  id: {
-    type: String,
-    required: true
-  },
-  role: {
+const userSchema = new Schema({
+  name: {
     type: String,
     required: true
   },
@@ -19,10 +15,28 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  role: {
+    type: String,
+    required: true
+  },
+  creator: {
+    userId: String,
+    name: String,
+  },
   date_created: {
     type: Date,
     default: Date.now
-  },
+  }
 });
 
-module.exports = User = mongoose.model('user', UserSchema);
+userSchema.method({
+  authenticate: (password) => {
+    return encryption.generateHashedPassword(this.salt, password) === this.hashedPass;
+  }
+});
+
+const User = mongoose.model('User', userSchema);
+module.exports = User;
+
+//TODO
+// Check if user exist or seedadmin user

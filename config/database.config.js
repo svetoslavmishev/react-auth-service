@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true);
 
 if (process.env.MONGODB_CONNECTION != '') {
     mongoose.connect(process.env.MONGODB_CONNECTION, { useNewUrlParser: true })

@@ -6,16 +6,20 @@
   "author": "SvetoslaVM",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon --exec babel-node server.js",
     "server": "nodemon server.js",
     "client": "cd client && yarn start",
     "client-install": "yarn install --prefix client",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "concurrently --kill-others-on-fail  \"yarn start\" \"yarn client\""
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
   },
   "dependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/node": "^7.5.0",
+    "@babel/preset-env": "^7.5.4",
     "@material-ui/icons": "^4.0.1",
     "concurrently": "^4.1.0",
     "dotenv": "^8.0.0",
