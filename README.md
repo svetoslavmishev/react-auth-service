@@ -14,7 +14,7 @@ yarn install
 # Run the server with concurrently
 yarn run dev
 
-# Server runs on http://localhost:5000
+# Server runs on http://localhost:5033
 ```
 
 ## App Info
