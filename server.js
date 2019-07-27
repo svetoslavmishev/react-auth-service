@@ -1,32 +1,63 @@
 import express from 'express';
-import config from './config/config';
-import database from './config/database.config';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import passport from 'passport';
 
+import database from './config/database.config';
+import config from './config/config';
+
+// Coniguration
 const port = process.env.PORT || 5033;
 const env = process.env.NODE_ENV || 'developement';
-
-
 const app = express();
 
 // Middlewares
-// Bodyparser Middleware
 app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
+app.use(logger('dev'));
+app.use(cookieParser());
+app.use(
+  session({ secret: 'shhsecret', resave: true, saveUninitialized: true })
+);
 
 // Connect with mongoDB
 database(config[env]);
 
+// Serve the public folder as static assets
+app.use('/static', express.static('./public'));
+
 // Routes
-app.use('/api/users', require('./routes/api/users'));
-app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/v1/users', require('./routes/users'));
+// app.use('/api/v1/auth', require('./routes/auth'));
 
-// Serve static assets if in production
-if (env === 'production') {
-    // Set static folder
-    app.use(express.static('client/build'));
+// global 404 error handler
+app.use(function(req, res, next) {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+// development error handler with stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
     });
+  });
 }
+
+//global error handler
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
 
 app.listen(port, console.log(`Server running at http://localhost:${port}`));
