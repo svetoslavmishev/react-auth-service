@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -7,13 +8,13 @@ import passport from 'passport';
 import database from './config/database.config';
 import config from './config/config';
 
-// Coniguration
 const port = process.env.PORT || 5033;
 const env = process.env.NODE_ENV || 'developement';
 const app = express();
 
 // Middlewares
 app.use(express.json());
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
@@ -51,7 +52,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-//global error handler
+// global error handler
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
