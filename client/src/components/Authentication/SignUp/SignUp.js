@@ -1,36 +1,49 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Avatar, Button, CssBaseline, TextField, Paper, Grid, Typography } from '@material-ui/core';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Paper,
+  Grid,
+  Typography
+} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/core/styles';
-import styles from './SignUpStyles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import styles from './SignUpStyles';
+import * as Actions from '../../../store/actions';
 
 class SignUp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-    };
+  state = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  };
 
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleClick(event) {
+  handleClick = event => {
+    const { createUser } = this.props;
+    const { firstName, lastName } = this.state;
     //if func is passed return func
-    //func should passed from redux store    
+    //func should passed from redux store
     event.preventDefault();
 
     //TODO validations
-    console.log(this.state);
+    const newUser = {
+      username: `${firstName}${lastName}`,
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    createUser(newUser);
   };
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -48,7 +61,7 @@ class SignUp extends Component {
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign up
-        </Typography>
+            </Typography>
             <form className={classes.form} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -116,7 +129,7 @@ class SignUp extends Component {
                 <Grid item>
                   <Link to="/auth/signin" variant="body2">
                     Already have an account? Sign in
-              </Link>
+                  </Link>
                 </Grid>
               </Grid>
             </form>
@@ -128,16 +141,25 @@ class SignUp extends Component {
 }
 
 SignUp.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SignUp);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      createUser: Actions.createUser
+    },
+    dispatch
+  );
+}
 
+function mapStateToProps(state) {
+  return {};
+}
 
-
-
-
-
-
-
-
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignUp)
+);

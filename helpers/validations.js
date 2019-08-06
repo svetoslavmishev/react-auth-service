@@ -1,4 +1,14 @@
-const validations = () => {
+const validate = key => {
+  if (key === 'signin') {
+    return {
+      email: {
+        in: ['body'],
+        isEmail: true,
+        errorMessage: 'Please enter a valid email address'
+      }
+    };
+  }
+
   return {
     username: {
       in: ['body'],
@@ -24,4 +34,4 @@ const validations = () => {
   };
 };
 
-module.exports = validations;
+module.exports = validate;

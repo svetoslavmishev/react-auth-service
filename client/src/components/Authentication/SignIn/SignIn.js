@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Avatar, Button, CssBaseline, TextField, Paper, Grid, Typography } from '@material-ui/core';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Paper,
+  Grid,
+  Typography
+} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/core/styles';
-import styles from './SignInStyles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import styles from './SignInStyles';
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      password: ''
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -26,17 +36,17 @@ class SignIn extends Component {
 
     //TODO validations
     console.log(this.state);
-  };
+  }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
-  };
+  }
 
   render() {
     const { classes } = this.props;
 
     return (
-      <Grid container component="main" className={classes.root} >
+      <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={8} className={classes.image} />
         <Grid item xs={12} sm={8} md={4} component={Paper} elevation={6} square>
@@ -98,7 +108,20 @@ class SignIn extends Component {
 }
 
 SignIn.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SignIn);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({}, dispatch);
+}
+
+function mapStateToProps(state) {
+  return {};
+}
+
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignIn)
+);
