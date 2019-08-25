@@ -13,8 +13,8 @@ const validate = key => {
     username: {
       in: ['body'],
       isLength: {
-        options: { min: 6, max: 12 },
-        errorMessage: 'Username should be between 6 and 12 chars long'
+        options: { min: 6, max: 20 },
+        errorMessage: 'Username should be between 6 and 20 chars long'
       },
       trim: true
     },

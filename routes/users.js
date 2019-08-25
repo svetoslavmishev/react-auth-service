@@ -1,7 +1,7 @@
 import passport from 'passport';
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import { check, validationResult, checkSchema } from 'express-validator';
+import { validationResult, checkSchema } from 'express-validator';
 
 import User from '../models/User';
 import config from '../config/config';

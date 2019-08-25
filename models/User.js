@@ -1,8 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-// bcrypt-nodejs has been deprecated
-// USE yarn add bcrypt
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
   username: {
@@ -40,7 +38,7 @@ userSchema.pre('save', function(next) {
       if (err) {
         return next(err);
       }
-      bcrypt.hash(user.password, salt, null, function(err, hash) {
+      bcrypt.hash(user.password, salt, function(err, hash) {
         if (err) {
           return next(err);
         }
@@ -53,8 +51,8 @@ userSchema.pre('save', function(next) {
   }
 });
 
-userSchema.methods.comparePassword = function(passw, cb) {
-  bcrypt.compare(passw, this.password, function(err, isMatch) {
+userSchema.methods.comparePassword = function(pass, cb) {
+  bcrypt.compare(pass, this.password, function(err, isMatch) {
     if (err) {
       return cb(err);
     }

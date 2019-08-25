@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withSnackbar } from 'notistack';
 
 import styles from './SignUpStyles';
 import * as Actions from '../../../store/actions';
@@ -27,20 +28,20 @@ class SignUp extends Component {
   };
 
   handleClick = event => {
-    const { createUser } = this.props;
+    const { createUser, history } = this.props;
     const { firstName, lastName } = this.state;
-    //if func is passed return func
-    //func should passed from redux store
+
+    //TODO front-end validations before setState
     event.preventDefault();
 
-    //TODO validations
     const newUser = {
-      username: `${firstName}${lastName}`,
+      username: `${firstName} ${lastName}`,
       email: this.state.email,
       password: this.state.password
     };
 
     createUser(newUser);
+    history.push('/auth/signin');
   };
 
   handleChange = event => {
@@ -141,7 +142,8 @@ class SignUp extends Component {
 }
 
 SignUp.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  createUser: PropTypes.func
 };
 
 function mapDispatchToProps(dispatch) {
@@ -161,5 +163,5 @@ export default withStyles(styles)(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(SignUp)
+  )(withSnackbar(SignUp))
 );
