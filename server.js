@@ -7,6 +7,7 @@ import passport from 'passport';
 
 import database from './config/database.config';
 import config from './config/config';
+import auth from './config/auth';
 
 const port = process.env.PORT || 5033;
 const env = process.env.NODE_ENV || 'developement';
@@ -32,7 +33,6 @@ app.use('/static', express.static('./public'));
 
 // Routes
 app.use('/api/v1/users', require('./routes/users'));
-// app.use('/api/v1/auth', require('./routes/auth'));
 
 // global 404 error handler
 app.use(function(req, res, next) {

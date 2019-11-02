@@ -15,6 +15,8 @@ yarn install
 yarn run dev
 
 # Server runs on http://localhost:5033
+
+# Open the browser on http://localhost:3000
 ```
 
 ## App Info
