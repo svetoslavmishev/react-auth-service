@@ -20,28 +20,23 @@ import styles from './SignUpStyles';
 import * as Actions from '../../../store/actions';
 
 class SignUp extends Component {
-  state = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
-  };
+  state = { firstName: '', lastName: '', email: '', password: '' };
 
   handleClick = event => {
-    const { createUser, history } = this.props;
+    event.preventDefault();
+    const { signupUser, history } = this.props;
     const { firstName, lastName } = this.state;
 
-    //TODO front-end validations before setState
-    event.preventDefault();
-
+    //TODO front-end fields validations
     const newUser = {
       username: `${firstName} ${lastName}`,
       email: this.state.email,
       password: this.state.password
     };
 
-    createUser(newUser);
+    signupUser(newUser);
     history.push('/auth/signin');
+    this.setState({ firstName: '', lastName: '', email: '', password: '' });
   };
 
   handleChange = event => {
@@ -50,7 +45,7 @@ class SignUp extends Component {
 
   render() {
     const { classes } = this.props;
-
+    const { firstName, lastName, email, password } = this.state;
     return (
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
@@ -69,6 +64,7 @@ class SignUp extends Component {
                   <TextField
                     autoComplete="fname"
                     name="firstName"
+                    value={firstName}
                     variant="outlined"
                     required
                     fullWidth
@@ -85,6 +81,7 @@ class SignUp extends Component {
                     fullWidth
                     id="lastName"
                     label="Last Name"
+                    value={lastName}
                     name="lastName"
                     autoComplete="lname"
                     onChange={this.handleChange}
@@ -98,6 +95,7 @@ class SignUp extends Component {
                     id="email"
                     label="Email Address"
                     name="email"
+                    value={email}
                     autoComplete="email"
                     onChange={this.handleChange}
                   />
@@ -108,6 +106,7 @@ class SignUp extends Component {
                     required
                     fullWidth
                     name="password"
+                    value={password}
                     label="Password"
                     type="password"
                     id="password"
@@ -143,13 +142,13 @@ class SignUp extends Component {
 
 SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
-  createUser: PropTypes.func
+  signupUser: PropTypes.func
 };
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      createUser: Actions.createUser
+      signupUser: Actions.signupUser
     },
     dispatch
   );

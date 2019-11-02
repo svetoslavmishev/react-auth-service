@@ -4,9 +4,7 @@ import { AppBar, Typography, Button, Toolbar } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import styles from './NavigationStyles';
 
-
 class Navigation extends Component {
-
   render() {
     const { classes } = this.props;
 
@@ -16,8 +14,23 @@ class Navigation extends Component {
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               MERN Authentication
-              </Typography>
-            <Button color="inherit" href="/auth/signin">Sign In</Button>
+            </Typography>
+            {token && token !== '' ? (
+              <div>
+                <span>Welcome...</span>
+                <Button
+                  onClick={() => localStorage.clear()}
+                  color="inherit"
+                  href="/auth/signin"
+                >
+                  Log out
+                </Button>
+              </div>
+            ) : (
+              <Button color="inherit" href="/auth/signin">
+                Sign in
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
       </div>
@@ -26,7 +39,7 @@ class Navigation extends Component {
 }
 
 Navigation.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Navigation);

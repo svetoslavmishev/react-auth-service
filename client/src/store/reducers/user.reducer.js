@@ -1,7 +1,7 @@
 import {
-  CREATE_USER_LOADING,
-  CREATE_USER_SUCCESS,
-  CREATE_USER_ERROR
+  SIGNIN_USER_LOADING,
+  SIGNIN_USER_SUCCESS,
+  SIGNIN_USER_ERROR
 } from '../actions/user.actions';
 
 const initialState = {
@@ -10,19 +10,23 @@ const initialState = {
 
 function user(state = initialState, action) {
   switch (action.type) {
-    case CREATE_USER_LOADING:
+    case SIGNIN_USER_LOADING:
       return {
         userLoading: true
       };
-    case CREATE_USER_SUCCESS:
+    case SIGNIN_USER_SUCCESS:
       return {
         users: action.data,
         userLoading: false
       };
-    case CREATE_USER_ERROR:
+    case SIGNIN_USER_ERROR:
       return {
         userLoading: false,
         error: action.data
+      };
+    case LOGOUT_USER:
+      return {
+        initialState
       };
     default:
       return state;

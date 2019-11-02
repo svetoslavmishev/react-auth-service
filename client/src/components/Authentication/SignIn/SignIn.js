@@ -15,35 +15,41 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import * as Actions from '../../../store/actions';
 import styles from './SignInStyles';
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      password: ''
-    };
+    this.state = { email: '', password: '' };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleClick(event) {
-    //if func is passed return func
-    //func should passed from redux store
+  handleClick = event => {
     event.preventDefault();
+    const { signinUser } = this.props;
+    const { email, password } = this.state;
 
-    //TODO validations
-    console.log(this.state);
-  }
+    //TODO front-end fields validations
+    const userData = { email, password };
+
+    signinUser(userData, this.setToken);
+    this.setState({ email: '', password: '' });
+  };
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  setToken = token => {
+    localStorage.setItem('token', token);
+  };
+
   render() {
     const { classes } = this.props;
+    const { email, password } = this.state;
 
     return (
       <Grid container component="main" className={classes.root}>
@@ -66,6 +72,7 @@ class SignIn extends Component {
                 id="email"
                 label="Email Address"
                 name="email"
+                value={email}
                 autoComplete="email"
                 autoFocus
                 onChange={this.handleChange}
@@ -76,6 +83,7 @@ class SignIn extends Component {
                 required
                 fullWidth
                 name="password"
+                value={password}
                 label="Password"
                 type="password"
                 id="password"
@@ -108,15 +116,23 @@ class SignIn extends Component {
 }
 
 SignIn.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  signinUser: PropTypes.func
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators(
+    {
+      signinUser: Actions.signinUser
+    },
+    dispatch
+  );
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    user: state.app.users
+  };
 }
 
 export default withStyles(styles)(
