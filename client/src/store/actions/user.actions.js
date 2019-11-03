@@ -20,7 +20,13 @@ export function signupUser(newUser) {
       .then(response => {
         dispatch({
           type: SIGNUP_USER_SUCCESS,
-          data: Object.assign({}, { ...response.data, status: response.status })
+          data: Object.assign(
+            {},
+            {
+              ...response.data,
+              status: response.status
+            }
+          )
         });
       })
       .catch(error => {
@@ -40,7 +46,13 @@ export function signinUser(userData, callback) {
       .then(response => {
         dispatch({
           type: SIGNIN_USER_SUCCESS,
-          data: Object.assign({}, { ...response.data, status: response.status })
+          data: Object.assign(
+            {},
+            {
+              ...response.data,
+              status: response.status
+            }
+          )
         });
         callback(response.data.token);
       })

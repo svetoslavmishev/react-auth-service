@@ -15,22 +15,9 @@ class Navigation extends Component {
             <Typography variant="h6" className={classes.title}>
               MERN Authentication
             </Typography>
-            {token && token !== '' ? (
-              <div>
-                <span>Welcome...</span>
-                <Button
-                  onClick={() => localStorage.clear()}
-                  color="inherit"
-                  href="/auth/signin"
-                >
-                  Log out
-                </Button>
-              </div>
-            ) : (
-              <Button color="inherit" href="/auth/signin">
-                Sign in
-              </Button>
-            )}
+            <Button color="inherit" href="/auth/signin">
+              Sign in
+            </Button>
           </Toolbar>
         </AppBar>
       </div>

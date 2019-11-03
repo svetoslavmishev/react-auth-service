@@ -20,7 +20,12 @@ import styles from './SignUpStyles';
 import * as Actions from '../../../store/actions';
 
 class SignUp extends Component {
-  state = { firstName: '', lastName: '', email: '', password: '' };
+  state = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  };
 
   handleClick = event => {
     event.preventDefault();

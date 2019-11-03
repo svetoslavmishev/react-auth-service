@@ -64,7 +64,13 @@ router.post('/signin', checkSchema(validate('signin')), (req, res) => {
           // if user is found and password is right create a token
           const token = jwt.sign(user.toJSON(), config.developement.secret);
           // return the information including token as JSON
-          res.json({ success: true, token });
+          res.json({
+            id: user._id,
+            name: user.username,
+            email: user.email,
+            success: true,
+            token
+          });
         } else {
           res
             .status(401)

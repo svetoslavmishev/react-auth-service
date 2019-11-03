@@ -19,13 +19,10 @@ import * as Actions from '../../../store/actions';
 import styles from './SignInStyles';
 
 class SignIn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { email: '', password: '' };
-
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
+  state = {
+    email: '',
+    password: ''
+  };
 
   handleClick = event => {
     event.preventDefault();
@@ -39,9 +36,9 @@ class SignIn extends Component {
     this.setState({ email: '', password: '' });
   };
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
   setToken = token => {
     localStorage.setItem('token', token);

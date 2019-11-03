@@ -1,7 +1,8 @@
 import {
   SIGNIN_USER_LOADING,
   SIGNIN_USER_SUCCESS,
-  SIGNIN_USER_ERROR
+  SIGNIN_USER_ERROR,
+  LOGOUT_USER
 } from '../actions/user.actions';
 
 const initialState = {
